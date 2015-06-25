@@ -54,8 +54,10 @@ func init() {
 		return
 	}
 
+fmt.Println("---------------------> cache init 2.5")
 	// Use Redis (share same config as memcached)?
 	if Config.BoolDefault("cache.redis", false) {
+fmt.Println("---------------------> cache init 3")
 		hosts := strings.Split(Config.StringDefault("cache.hosts", ""), ",")
 		if len(hosts) == 0 {
 			panic("Redis enabled but no Redis hosts specified!")
@@ -69,5 +71,5 @@ func init() {
 	}
 
 	// By default, use the in-memory cache.
-	Instance = NewInMemoryCache(defaultExpiration)
+  Instance = NewInMemoryCache(defaultExpiration)
 }

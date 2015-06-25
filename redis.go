@@ -3,6 +3,7 @@ package cache
 import (
 	"github.com/garyburd/redigo/redis"
 	"time"
+  "fmt"
 )
 
 // Wraps the Redis client to meet the Cache interface.
@@ -27,10 +28,12 @@ func NewRedisCache(host string, password string, defaultExpiration time.Duration
 				return nil, err
 			}
 			if len(password) > 0 {
+        fmt.Println("-----------> Redis auth:", password)
 				if _, err := c.Do("AUTH", password); err != nil {
 					c.Close()
 					return nil, err
 				}
+        fmt.Println("-----------> Redis auth ok")
 			} else {
 				// check with PING
 				if _, err := c.Do("PING"); err != nil {
